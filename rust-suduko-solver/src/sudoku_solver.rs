@@ -63,20 +63,20 @@ fn get_options(board: &SudokuBoard, row: usize, column: usize) -> [u8; 9] {
 }
 
 #[inline]
-pub fn solve(mut board: SudokuBoard) -> SudokuBoard {
-    let [row, column] = next_empty_cell(&board);
+pub fn solve(board: &mut SudokuBoard) -> &SudokuBoard {
+    let [row, column] = next_empty_cell(board);
 
     if [row, column] == [10, 10] {
         return board;
     }
 
-    for option in get_options(&board, row, column)
+    for option in get_options(board, row, column)
         .into_iter()
         .take_while(|&x| x != 0)
     {
         board[row][column] = option;
-        board = solve(board);
-        if is_solved(&board) {
+        solve(board);
+        if is_solved(board) {
             return board;
         }
     }

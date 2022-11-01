@@ -27,7 +27,7 @@ fn main() {
                 }
             }
 
-            println!("{:?}", solve(puzzle));
+            println!("{:?}", solve(&mut puzzle));
         }
     }
 
